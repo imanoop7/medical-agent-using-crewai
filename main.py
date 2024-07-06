@@ -98,4 +98,13 @@ crew = Crew(
 )
 
 
+if st.button(" Get Diagnosis and Treatment Plan"):
+    with st.spinner("Generating Recommendations....."):
+        results = crew.kickoff(inputs={"symptoms":symptoms, "medical_history": medical_history})
+        st.write(results)
+        docx_file = generate_docx(results)
+
+        download_link = get_download_link(docx_file, "diagnosis_and_treatment_paln.docx")
+        st.markdown(download_link, unsafe_allow_html=True)
+
 
