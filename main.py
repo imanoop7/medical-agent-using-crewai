@@ -13,6 +13,15 @@ load_dotenv()
 os.environ['SERPER_API_KEY'] = os.getenv('SERPER_API_KEY')
 
 def generate_docx(result):
+    """
+    Generates a Word document containing healthcare diagnosis and treatment recommendations.
+
+    Args:
+        result (str): The diagnosis and treatment recommendations to be included in the document.
+
+    Returns:
+        BytesIO: A BytesIO object containing the generated Word document.
+    """
     doc = Document()
     doc.add_heading("Healthcare Diagnosis and Treatment Recommendations", 0)
     doc.add_paragraph(result)
@@ -22,6 +31,16 @@ def generate_docx(result):
     return bio
 
 def get_download_link(bio, filename):
+    """
+    Generates a download link for a Word document containing healthcare diagnosis and treatment recommendations.
+
+    Args:
+        bio (BytesIO): A BytesIO object containing the generated Word document.
+        filename (str): The name of the file to be downloaded.
+
+    Returns:
+        str: An HTML anchor tag with the download link for the Word document.
+    """
     b64 = base64.b64decode(bio.read()).decode()
     return f'<a href="data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,{b64}" download="{filename}">Download Diagnosis and Treatment Plan</a>'
 
